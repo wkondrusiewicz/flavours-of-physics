@@ -46,10 +46,10 @@ class Classifier:
         return copy.deepcopy(self.model)
 
     def fit(self, data, data_to_predict=test, pred_cv=False):
-        #pred_cv is used for predicing on data_to_predict using cross validation, it's easier to include it in the fit function
+        # pred_cv is used for predicing on data_to_predict using cross validation, it's easier to include it in the fit function
 
-        print('Fitting ' + self.model_name + ' model with ' + self.var_name +
-              ' variables using ' + str(self.cv.n_splits) + '-fold Cross Validation\n')
+        print('Fitting ' + self.model_name + ' model with ' + self.var_name
+              + ' variables using ' + str(self.cv.n_splits) + '-fold Cross Validation\n')
         X = data[self.variables].values
         y = data['signal'].values
 
@@ -104,8 +104,8 @@ class Classifier:
         self.trained = trained
 
     def predict(self, data):
-        print('Predicting for ' + self.model_name +
-              ' model with ' + self.var_name + ' variables\n')
+        print('Predicting for ' + self.model_name
+              + ' model with ' + self.var_name + ' variables\n')
 
         X = data[self.variables].values
 
@@ -115,9 +115,10 @@ class Classifier:
         else:
             self.predicted = self.trained_model.predict_proba(X)[:, 1]
         return self.predicted
+
     def check_ks_and_cvm(self, data, check_agreement, check_correlation):
-        print('Checking KS and CVM for ' + self.model_name
-              + ' model with ' + self.var_name + ' variables\n')
+        print('Checking KS and CVM for ' + self.model_name +
+              ' model with ' + self.var_name + ' variables\n')
 
         mod = self.create_model()
 
@@ -168,12 +169,12 @@ class Classifier:
         df['Validation'] = self.scores_val
         df['Training'] = self.scores_train
         bp = sns.boxplot(data=df, width=0.5, palette='colorblind')
-        plt.title('Box plot for ' + self.model_name +
-                  ' with ' + self.var_name + ' variables')
+        plt.title('Box plot for ' + self.model_name
+                  + ' with ' + self.var_name + ' variables')
         plt.ylabel('Weighted area under ROC curve')
         if flag == True:
-            plt.savefig('boxplot_' + self.fig_name +
-                        '_' + self.fig_var + '.pdf')
+            plt.savefig('boxplot_' + self.fig_name
+                        + '_' + self.fig_var + '.pdf')
         plt.show()
 
     def make_pareto_diagram(self, data, flag=False):
@@ -197,13 +198,13 @@ class Classifier:
 
         ax1.tick_params(axis="y", colors="C0")
         ax2.tick_params(axis="y", colors="C1")
-        plt.title('Feature importances for ' + self.model_name +
-                  ' model with ' + self.var_name + ' variables')
+        plt.title('Feature importances for ' + self.model_name
+                  + ' model with ' + self.var_name + ' variables')
         plt.setp(ax1.xaxis.get_majorticklabels(), rotation=90)
         plt.tight_layout()
         if flag == True:
-            plt.savefig('feature_' + self.fig_name +
-                        '_' + self.fig_var + '.pdf')
+            plt.savefig('feature_' + self.fig_name
+                        + '_' + self.fig_var + '.pdf')
         plt.show()
 
     def plot_learning_curve(self, data, flag=False):
@@ -219,8 +220,8 @@ class Classifier:
         test_scores_std = np.std(test_scores, axis=1)
 
         plt.figure()
-        plt.title('Learning curve for ' + self.model_name +
-                  ' with ' + self.var_name + ' variables')
+        plt.title('Learning curve for ' + self.model_name
+                  + ' with ' + self.var_name + ' variables')
 
         plt.xlabel("Training examples")
         plt.ylabel("Accuracy")
@@ -259,8 +260,8 @@ class Classifier:
         plt.legend()
         plt.xlabel('Epochs')
         plt.ylabel('Loss')
-        plt.title('Loss for ' + self.model_name +
-                  ' with ' + self.var_name + ' variables')
+        plt.title('Loss for ' + self.model_name
+                  + ' with ' + self.var_name + ' variables')
         if flag == True:
             plt.savefig('loss_' + self.fig_name + '_' + self.fig_var + '.pdf')
         plt.show()

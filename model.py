@@ -15,7 +15,6 @@ train, check_agreement, check_correlation, test = data.load_new_features(
 var_kin, var_geo = data.variables_list()
 skf = StratifiedKFold(n_splits=n, shuffle=True)
 
-test = test[:10000]
 
 params = {'learning_rate': 0.05, 'n_estimators': 100, 'max_depth': 4,
           'subsample': 0.5, 'n_jobs': 4, 'min_child_weight': 15}
@@ -46,12 +45,17 @@ xgb_geo.check_ks_and_cvm(
 xgb_geo.predict(data=test)
 
 
-func.save_combined_output('temp.csv', test, 0.4, 0.6, xgb_kin, xgb_geo)
+func.save_combined_output('submit.csv', test, 0.4, 0.6, xgb_kin, xgb_geo)
 func.check_combined_ks_and_cvm(
     0.4, 0.6, xgb_kin, xgb_geo, check_agreement=check_agreement, check_correlation=check_correlation)
 
 """
 #example of neural network:
+
+import keras
+from keras.layers import Input, Dense
+from keras.models import Model
+
 
 inputs = Input(shape=(len(var_kin),))
 x = Dense(8, activation='relu')(inputs)

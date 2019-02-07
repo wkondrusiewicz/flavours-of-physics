@@ -6,6 +6,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 def load_new_features(train_path='../data/training.csv', check_agreement_path='../data/check_agreement.csv', check_correlation_path='../data/check_correlation.csv', test_path='../data/test.csv', no_test=False):
+
     train = pd.read_csv(train_path, index_col='id')
     check_agreement = pd.read_csv(check_agreement_path, index_col='id')
     check_correlation = pd.read_csv(check_correlation_path, index_col='id')
